@@ -14,7 +14,7 @@ import {
   Form,
   FormGroup,
   Input,
-  Label,
+  Label
 } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
@@ -26,7 +26,7 @@ class Header extends Component {
 
     this.state = {
       isNavOpen: false,
-      isModalOpen: false,
+      isModalOpen: false
     };
     this.wrapper = React.createRef();
 
@@ -37,13 +37,13 @@ class Header extends Component {
 
   toggleNav() {
     this.setState({
-      isNavOpen: !this.state.isNavOpen,
+      isNavOpen: !this.state.isNavOpen
     });
   }
 
   toggleModal() {
     this.setState({
-      isModalOpen: !this.state.isModalOpen,
+      isModalOpen: !this.state.isModalOpen
     });
 
     console.log(this.state.isModalOpen);
@@ -57,7 +57,7 @@ class Header extends Component {
         "Password: " +
         this.password.value +
         "Remember: " +
-        this.remember.checked,
+        this.remember.checked
     );
     event.preventDefault();
   }
@@ -113,12 +113,11 @@ class Header extends Component {
           <div className="container">
             <div className="row row-header">
               <div className="col-12 col-sm-6">
-                <h1>Bienvenidos al restaurante confusion.</h1>
+                <h1>Restaurante Confusion</h1>
                 <p>
-                  La confusion de react con la comida Nos inspiramos en la mejor
-                  cocina del mundo y creamos una unica fusion de experiencias.
-                  Nuestro objetivo es deleitar tus sentidos culinarios y de
-                  programacion ;D.
+                  Nos inspiramos en la mejor cocina del mundo y creamos una
+                  unica fusion de experiencias. Nuestro objetivo es deleitar tus
+                  sentidos culinarios
                 </p>
               </div>
             </div>

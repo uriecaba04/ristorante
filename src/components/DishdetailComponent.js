@@ -13,65 +13,51 @@ import {
   Row,
   Modal,
   ModalHeader,
-  ModalBody,
+  ModalBody
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
 
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { baseUrl } from "../shared/baseUrl";
-import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function RenderDish({ dish }) {
   return (
     <div className="col-12 col-md-5 m-1">
-      <FadeTransform
-        in
-        transformProps={{
-          exitTransForm: "scale(0.5) traslateY(-50%)",
-        }}
-      >
-        <Card>
-          <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
-      </FadeTransform>
+      <Card>
+        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
     </div>
   );
 }
 
-function RenderComments({ comments, postComment, dishId }) {
+function RenderComments({ comments, addComment, dishId }) {
   if (comments != null) {
     return (
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         <ul className="list-unstyled">
-          <Stagger in>
-            {comments.map((coment) => {
-              return (
-                <Fade in>
-                  <li key={coment.id}>
-                    <p>{coment.comment}</p>
-                    <p>
-                      <strong>{coment.author}</strong>
-                      <br />
-
-                      {new Intl.DateTimeFormat("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "2-digit",
-                      }).format(new Date(Date.parse(coment.date)))}
-                    </p>
-                  </li>
-                </Fade>
-              );
-            })}
-          </Stagger>
+          {comments.map((coment) => {
+            return (
+              <li key={coment.id}>
+                <p>{coment.comment}</p>
+                <p>
+                  --{coment.autor}
+                  {new Intl.DateTimeFormat("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit"
+                  }).format(new Date(Date.parse(coment.date)))}
+                </p>
+              </li>
+            );
+          })}
         </ul>
-        <CommentForm dishId={dishId} postComment={postComment} />
+        <CommentForm dishId={dishId} addComment={addComment} />
       </div>
     );
   } else {
@@ -113,7 +99,7 @@ const DishDetail = (props) => {
           <RenderDish dish={props.dish} />
           <RenderComments
             comments={props.comments}
-            postComment={props.postComment}
+            addComment={props.addComment}
             dishId={props.dish.id}
           />{" "}
         </div>
@@ -131,7 +117,7 @@ class CommentForm extends Component {
     super(props);
     this.state = {
       isNavOpen: false,
-      isModalOpen: false,
+      isModalOpen: false
     };
 
     this.toggleNav = this.toggleNav.bind(this);
@@ -141,27 +127,19 @@ class CommentForm extends Component {
 
   toggleNav() {
     this.setState({
-      isNavOpen: !this.state.isNavOpen,
+      isNavOpen: !this.state.isNavOpen
     });
   }
 
   toggleModal() {
     this.setState({
-      isModalOpen: !this.state.isModalOpen,
+      isModalOpen: !this.state.isModalOpen
     });
 
     console.log(this.state.isModalOpen);
   }
 
   handleSubmit(values) {
-    this.toggleModal();
-    this.props.postComment(
-      this.props.dishId,
-      values.rating,
-      values.author,
-      values.comment,
-    );
-    // RenderComments({ this.props.comments, this.props.postComment, this.props.dishId })
     console.log("El estado actual es :", JSON.stringify(values));
     alert("Thanks :" + JSON.stringify(values));
   }
@@ -221,7 +199,7 @@ class CommentForm extends Component {
                     validators={{
                       required,
                       minlength: minlength(3),
-                      maxlength: maxlength(15),
+                      maxlength: maxlength(15)
                     }}
                   />
                   <Errors
@@ -231,7 +209,7 @@ class CommentForm extends Component {
                     messages={{
                       required: "Your name is required. ",
                       minlength: "Must be greather than  2 characters. ",
-                      maxlength: "Must be  15 characters  or  less. ",
+                      maxlength: "Must be  15 characters  or  less. "
                     }}
                   />
                 </Col>
